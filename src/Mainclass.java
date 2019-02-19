@@ -20,24 +20,30 @@ public class Mainclass {
 	List<InstrumentBO> h2=t2.readFile(instructionFilename);	
 	System.out.println(h2);
 	
-	Scanner input = new Scanner(System.in);
-	System.out.println("Enter FromDate ");
-	String fromDate1= input.next();
+// 	Scanner input = new Scanner(System.in);
+// 	System.out.println("Enter FromDate ");
+// 	String fromDate1= input.next();
 	
 		
-	System.out.println("Enter ToDate ");
-		String todate1= input.next();
-		
-		  SimpleDateFormat sdfo = new SimpleDateFormat("dd-MM-yyyy"); 
+// 	System.out.println("Enter ToDate ");
+// 	String todate1= input.next();
+	 SimpleDateFormat sdfo = new SimpleDateFormat("dd/MM/yyyy"); 
 	 // Get the two dates to be compared 
-    Date fromDate = sdfo.parse(fromDate1); 
-    Date toDate = sdfo.parse(todate1);
-    
+    Date fromDate = sdfo.parse("10/11/2017"); 
+    Date toDate = sdfo.parse("03/12/2017");
+		
     //List<TradeBO> tradeListResult=t1.readFile(tradeFilename);
-    while(tradeBO.getTradeDtTime().after(fromDate) && tradeBO.getTradeDtTime().before(toDate))
-    {
-    	System.out.println("True");
-    }
+    List<TradeBO> result = trades.stream().filter(x -> (x.getTradeDtTime().after(fromDate) && x.getTradeDtTime().before(toDate))).collect(Collectors.toList());
+    result.forEach(System.out::println);
+    
+    List<TradeBO> result2 = trades.stream().filter(x -> !(x.getTradeDtTime().after(fromDate) && x.getTradeDtTime().before(toDate))).collect(Collectors.toList());
+    System.out.println("------------------------------------------------------ ");
+    
+	result2.forEach(System.out::println);
+//     while(tradeBO.getTradeDtTime().after(fromDate) && tradeBO.getTradeDtTime().before(toDate))
+//     {
+//     	System.out.println("True");
+//     }
   
 //	if (calen1.after(calen2)) { 
 //		  
